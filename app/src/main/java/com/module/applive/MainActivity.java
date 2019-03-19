@@ -1,12 +1,10 @@
 package com.module.applive;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.module.applive.service.ForgroundService;
 import com.module.applive.service.LocationService;
-import com.module.applive.service.RemoteService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
         //双进程守护
         startService(new Intent(this, LocationService.class));
-        startService(new Intent(this, RemoteService.class));
+//        startService(new Intent(this, RemoteService.class));
     }
 }

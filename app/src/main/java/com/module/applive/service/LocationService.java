@@ -8,6 +8,7 @@ import android.os.IBinder;
 
 /**
  * Created by wubo on 2019/3/18.
+ * 定位服务
  */
 
 public class LocationService extends ForgroundService {

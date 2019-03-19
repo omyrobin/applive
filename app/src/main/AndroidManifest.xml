@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.module.applive">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,16 +19,33 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".screen.OnePiexlActivity"
-            android:theme="@style/transparency">
-        </activity>
+        <activity
+            android:name=".screen.OnePiexlActivity"
+            android:theme="@style/transparency"></activity>
 
-        <service android:name=".service.ForgroundService"/>
-        <service android:name=".service.ForgroundService$InnerService"/>
+        <service android:name=".service.ForgroundService" />
+        <service android:name=".service.ForgroundService$InnerService" />
 
-        <service android:name=".service.LocationService"/>
-        <service android:name=".service.RemoteService"
-            android:process=":remote"/>
+        <service android:name=".service.LocationService" />
+        <service
+            android:name=".service.RemoteService"
+            android:process=":remote" />
+
+        <service
+            android:name="service.ScheduleService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver android:name=".receiver.CameraReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="com.android.camera.NEW_VIDEO" />
+                <action android:name="android.hardware.action.NEW_VIDEO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

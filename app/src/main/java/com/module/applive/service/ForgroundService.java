@@ -7,12 +7,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-
-import com.module.applive.R;
+import android.util.Log;
 
 /**
  * Created by wubo on 2019/3/18.
@@ -34,10 +32,22 @@ public class ForgroundService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//            startForeground(NOTIFICATION_ID, new Notification());
-//        } else
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true){
+                        Log.i("TAG", "我在上传数据");
+                        Thread.sleep(5000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            startForeground(NOTIFICATION_ID, new Notification());
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             startForeground(NOTIFICATION_ID, new Notification());
             startService(new Intent(this, InnerService.class));
         }else{
@@ -50,7 +60,7 @@ public class ForgroundService extends Service {
             }
 
         }
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     public static class InnerService extends Service {
